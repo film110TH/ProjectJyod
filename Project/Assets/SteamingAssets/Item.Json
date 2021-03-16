@@ -1,0 +1,31 @@
+[
+    {
+        "id": 0,
+        "title": "Box",
+        "value": 6,
+        "stats": {
+            "power": 1,
+            "defence": 4,
+            "vitality": 2
+        },
+        "description": "the test of box bitch",
+        "stackable": false,
+        "rarity": 2,
+        "slug": "boxcory"
+    },
+    {
+        "id": 1,
+        "title": "Box2",
+        "value": 255,
+        "stats": {
+
+            "power": 2,
+            "defence": 5,
+            "vitality": 50
+        },
+        "description": "The test of stacking box ",
+        "stackable": true,
+        "rarity": 3,
+        "slug": "Boxyaro"
+    }
+]
