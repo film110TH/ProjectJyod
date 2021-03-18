@@ -1,7 +1,7 @@
 [
     {
         "id": 0,
-        "title": "Box",
+        "title": "Sword",
         "value": 6,
         "stats": {
             "power": 1,
@@ -11,11 +11,11 @@
         "description": "the test of box bitch",
         "stackable": false,
         "rarity": 2,
-        "slug": "boxcory"
+        "slug": "Sword"
     },
     {
         "id": 1,
-        "title": "Box2",
+        "title": "Box",
         "value": 255,
         "stats": {
 
@@ -26,6 +26,6 @@
         "description": "The test of stacking box ",
         "stackable": true,
         "rarity": 3,
-        "slug": "Boxyaro"
+        "slug": "Box"
     }
 ]
