@@ -19,14 +19,16 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        dataBase = GetComponent<ItemDataBase>();
+        dataBase = GetComponent<ItemDataBase>();        
         slotAmount = 20;
         invertorypanel = GameObject.Find("Inventory Panel");
+        Debug.Log(invertorypanel);
         slotpanel = invertorypanel.transform.FindChild("Slot Panel").gameObject;
         for (int i = 0; i < slotAmount; i++)
         {
             itmes.Add(new Item());
             slots.Add(Instantiate(inventoryslot));
+            slots[i].GetComponent<slot>().id = i;
             slots[i].transform.SetParent(slotpanel.transform);
             slots[i].transform.localScale = new Vector3(1f, 1f, 1f);
         }
@@ -67,8 +69,9 @@ public class Inventory : MonoBehaviour
                 {
                     itmes[i] = itemtoAdd;
                     GameObject itemObj = Instantiate(inventoryItem);
+                    itemObj.GetComponent<itemdata>().item = itemtoAdd;
+                    itemObj.GetComponent<itemdata>().slot = i;
                     itemObj.transform.SetParent(slots[i].transform);
-
                     itemObj.transform.position = Vector2.zero;
                     itemObj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
                     itemObj.GetComponent<Image>().sprite = itemtoAdd.Sprite;

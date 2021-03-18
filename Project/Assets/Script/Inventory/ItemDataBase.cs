@@ -13,8 +13,6 @@ public class ItemDataBase : MonoBehaviour
     {
         itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath +"/SteamingAssets/Item.Json"));
         ConstructItemDaraBase();
-
-        Debug.Log(fetchItemByID(0).Description);
         
     }
 
