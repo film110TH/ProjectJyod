@@ -1,23 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PinkUp : MonoBehaviour
 {
     public GameObject pinkUpPoin;
     public GameObject dropPoin;
     GameObject item = null;
-    bool canpink = false;
+    public bool canpink = false;
+
+    Even pickitem = new Even();
+
+
+    public void pickuplistener(UnityAction<int> listener)
+    {
+        pickitem.AddListener(listener);
+    }
+    
     void Update()
     {
         if (canpink)
-        {
-            item.transform.position = pinkUpPoin.transform.position;
+        {    
+            if(item != null)
+            {
+                
+                item.transform.position = pinkUpPoin.transform.position;
+            }
             if (Input.GetKey(KeyCode.Q))
             {
                 item.transform.position = dropPoin.transform.position;
                 canpink = false;
             }
+           
         }
         else if (canpink == false)
         {
@@ -40,5 +55,6 @@ public class PinkUp : MonoBehaviour
                 }
             }
         }
+
     }
 }

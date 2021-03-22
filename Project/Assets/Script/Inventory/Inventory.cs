@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    GameObject player;
     GameObject invertorypanel;
     GameObject slotpanel;
     ItemDataBase dataBase;
@@ -17,12 +18,21 @@ public class Inventory : MonoBehaviour
     public List<Item> itmes = new List<Item>();
     public List<GameObject> slots = new List<GameObject>();
 
+    //void addpickuplistener()
+    //{
+
+    //}
+    //public void OnPickItem(int itemID)
+    //{
+    //    AddItem(itemID);
+    //}
+
+    [Obsolete]
     private void Start()
     {
-        dataBase = GetComponent<ItemDataBase>();        
+        dataBase = GetComponent<ItemDataBase>();               
         slotAmount = 20;
         invertorypanel = GameObject.Find("Inventory Panel");
-        Debug.Log(invertorypanel);
         slotpanel = invertorypanel.transform.FindChild("Slot Panel").gameObject;
         for (int i = 0; i < slotAmount; i++)
         {
@@ -32,17 +42,7 @@ public class Inventory : MonoBehaviour
             slots[i].transform.SetParent(slotpanel.transform);
             slots[i].transform.localScale = new Vector3(1f, 1f, 1f);
         }
-        AddItem(0);
-        AddItem(1);
-        AddItem(1);
-        AddItem(1);
-        AddItem(1);
-        AddItem(1);
-        AddItem(1);
-        AddItem(1);
-        AddItem(1);
-
-
+        AddItem(3);
     }
 
     public void AddItem(int id)

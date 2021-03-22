@@ -28,5 +28,21 @@
         "rarity": 3,
         "slug": "Box"
 
+    },
+    {
+        "id": 3,
+        "title": "Radish",
+        "value": 10,
+        "stats": {
+
+            "power": 0,
+            "defence": 5,
+            "vitality": 50
+        },
+        "description": "Plants that can Sellable",
+        "stackable": true,
+        "rarity": 3,
+        "slug": "Radish"
+
     }
 ]

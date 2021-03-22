@@ -8,10 +8,13 @@ public class PlayerControler : MonoBehaviour
     public float speed;
     public static float rotate = 0f;
     private Animator animation;
+
+   
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animation = GetComponent<Animator>();
+        
     }
 
     void Update()
@@ -131,5 +134,7 @@ public class PlayerControler : MonoBehaviour
             animation.SetBool("Run", false);
             speed -= 20;
         }
+
+        
     }
 }
