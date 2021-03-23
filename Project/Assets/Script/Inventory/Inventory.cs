@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    GameObject player;
     GameObject invertorypanel;
     GameObject slotpanel;
     ItemDataBase dataBase;
@@ -17,15 +16,6 @@ public class Inventory : MonoBehaviour
     int slotAmount; 
     public List<Item> itmes = new List<Item>();
     public List<GameObject> slots = new List<GameObject>();
-
-    //void addpickuplistener()
-    //{
-
-    //}
-    //public void OnPickItem(int itemID)
-    //{
-    //    AddItem(itemID);
-    //}
 
     [Obsolete]
     private void Start()

@@ -27,7 +27,6 @@ public class NPC : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log("chack");
             if (Input.GetKeyDown(KeyCode.E))
             {
                 TriggerDialogue();
