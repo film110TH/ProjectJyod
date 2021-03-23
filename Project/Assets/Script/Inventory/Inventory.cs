@@ -13,6 +13,8 @@ public class Inventory : MonoBehaviour
     public GameObject inventoryslot;
     public GameObject inventoryItem;
 
+    PinkUp pick; 
+
     int slotAmount; 
     public List<Item> itmes = new List<Item>();
     public List<GameObject> slots = new List<GameObject>();
@@ -20,6 +22,7 @@ public class Inventory : MonoBehaviour
     [Obsolete]
     private void Start()
     {
+        pick = GameObject.Find("Player").GetComponent<PinkUp>();
         dataBase = GetComponent<ItemDataBase>();               
         slotAmount = 20;
         invertorypanel = GameObject.Find("Inventory Panel");
@@ -32,10 +35,17 @@ public class Inventory : MonoBehaviour
             slots[i].transform.SetParent(slotpanel.transform);
             slots[i].transform.localScale = new Vector3(1f, 1f, 1f);
         }
+
+        pick.PickListener(OnPickUpitem);
         AddItem(3);
+
     }
 
-    public void AddItem(int id)
+    public void OnPickUpitem(int itemid)
+    {
+        AddItem(itemid);
+    }
+    public void AddItem(int id) 
     {
         Item itemtoAdd = dataBase.fetchItemByID(id);
         if (itemtoAdd.Stackable && Checkitemisinventory(itemtoAdd))
