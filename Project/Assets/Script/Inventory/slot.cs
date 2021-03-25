@@ -9,9 +9,9 @@ public class slot : MonoBehaviour, IDropHandler
     public Inventory inv;
     public itemdata droppeditem;
   
-    void Start()
+    void Awake()
     {
-        inv = GameObject.Find("Inventory").GetComponent<Inventory>();   
+        inv = GameObject.Find("Inventory").transform.GetComponent<Inventory>();   
     }
 
     public void OnDrop(PointerEventData eventData)

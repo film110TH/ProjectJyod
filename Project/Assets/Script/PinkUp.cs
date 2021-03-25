@@ -9,8 +9,8 @@ using System;
 public class PinkUp : MonoBehaviour
 {
     PickUpEven pickupeven = new PickUpEven();
-    
 
+    private int x = 0;
     public float Delay = 3f;
     public GameObject pinkUpPoin;
     public GameObject dropPoin;
@@ -26,7 +26,12 @@ public class PinkUp : MonoBehaviour
     }
     void Update()
     {
-     
+        if(x == 1)
+        {
+            pickupeven.Invoke(itemid);
+
+            x = 0;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -45,22 +50,25 @@ public class PinkUp : MonoBehaviour
             }
             if (canpink == false)
             {
-                if (Input.GetKey(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     
                     OnDropItems();
-                   
+                    
                 }
-                else if (Input.GetKey(KeyCode.F))
+                else if (Input.GetKeyDown(KeyCode.F)&&(Input.GetKey(KeyCode.F)))
                 {
                     ID = item.GetComponent<ItemId>();
                     itemid = ID.itemID;
-                    
+                    x += 1;
+                   
+                    Destroy(item.gameObject);
+                    StartCoroutine(DelayBotton(true));
                 }
             }           
         }
     }
-    void AddtoInventory()
+    void clearItem()
     {
         
     }

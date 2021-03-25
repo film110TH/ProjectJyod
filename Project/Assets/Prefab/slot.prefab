@@ -89,3 +89,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   inv: {fileID: 0}
+  droppeditem: {fileID: 0}

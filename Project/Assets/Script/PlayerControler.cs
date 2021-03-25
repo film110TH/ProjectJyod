@@ -1,24 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerControler : MonoBehaviour
 {
+    public CharacterController controller;
+    public Transform cam;
+
     private Rigidbody rb;
     public float speed;
     public static float rotate = 0f;
     private Animator animation;
 
+    public float turnSmootthime = 0.1f;
+    float turnsmoothvelocity;
+
    
     void Start()
     {
+        controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         animation = GetComponent<Animator>();
-        
+
+        UnityEngine.Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     void Update()
     {
+        
         float MoveHorizontal = Input.GetAxis("Horizontal");
         float MoveVertical = Input.GetAxis("Vertical");
 
@@ -26,115 +38,32 @@ public class PlayerControler : MonoBehaviour
 
         rb.AddForce(Movement);
 
-        if (Input.GetKey(KeyCode.A))
+        if (Movement.magnitude >= 0.1f)
         {
-            animation.SetBool("WalkA", true);
-            if (rotate != -90f)
-            {
-                transform.rotation = Quaternion.Euler(0f, -90f, 0f);
-                rotate = -90;
+            float targelAngle = Mathf.Atan2(Movement.x, Movement.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targelAngle, ref turnsmoothvelocity, turnSmootthime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-            }
+            Vector3 moveDir = Quaternion.Euler(0f, targelAngle, 0f)* Vector3.forward;
+            controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.D))
-        {
-            animation.SetBool("WalkD", true);
-            if (rotate != 90f)
-            {
 
-                transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-                rotate = 90;
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            animation.SetBool("Walk", true);
+        }else { animation.SetBool("Walk", false); }
 
-            }
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            animation.SetBool("WalkS", true);
-            if (rotate != 180f)
-            {
-                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                rotate = 180;
-
-            }
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            animation.SetBool("WalkW", true);
-            if (rotate != 0f)
-            {
-                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                rotate = 0;
-
-            }
-        }
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
-        {
-            
-            if (rotate != 45f)
-            {
-                transform.rotation = Quaternion.Euler(0f, 45f, 0f);
-                rotate = 45f;
-
-            }
-        }
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
-        {
-            if (rotate != 135f)
-            {
-               
-                transform.rotation = Quaternion.Euler(0f, 135f, 0f);
-                rotate = 135f;
-
-            }
-        }
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
-        {
-            if (rotate != 225f)
-            {
-                
-                transform.rotation = Quaternion.Euler(0f, 225f, 0f);
-                rotate = 225f;
-
-            }
-        }
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
-        {
-            if (rotate != 315f)
-            {
-                
-                transform.rotation = Quaternion.Euler(0f, 315f, 0f);
-                rotate = 315f;
-
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            animation.SetBool("WalkW",false);
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            animation.SetBool("WalkA", false);
-        }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            animation.SetBool("WalkS", false);
-        }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            animation.SetBool("WalkD", false);
-        }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             animation.SetBool("Run", true);
-            speed += 20;
+            speed += 2;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             animation.SetBool("Run", false);
-            speed -= 20;
+            speed -= 2;
         }
 
-        
     }
 }

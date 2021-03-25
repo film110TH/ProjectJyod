@@ -12,8 +12,10 @@ public class InvCon : MonoBehaviour
 
         inventory = GameObject.Find("Inventory Panel");
         inv = GameObject.Find("Inventory");
+   
     }
-    void Start()
+
+    private void Start()
     {
         inventory.SetActive(false);
         inv.SetActive(false);

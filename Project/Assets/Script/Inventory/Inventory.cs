@@ -20,29 +20,34 @@ public class Inventory : MonoBehaviour
     public List<GameObject> slots = new List<GameObject>();
 
     [Obsolete]
-    private void Start()
+    private void Awake()
     {
-        pick = GameObject.Find("Player").GetComponent<PinkUp>();
-        dataBase = GetComponent<ItemDataBase>();               
+        pick = GameObject.Find("Player").transform.GetComponent<PinkUp>();
+
+        dataBase =transform.GetComponent<ItemDataBase>();               
         slotAmount = 20;
-        invertorypanel = GameObject.Find("Inventory Panel");
+        invertorypanel = GameObject.Find("Inventory Panel").transform.gameObject;
         slotpanel = invertorypanel.transform.FindChild("Slot Panel").gameObject;
         for (int i = 0; i < slotAmount; i++)
         {
             itmes.Add(new Item());
             slots.Add(Instantiate(inventoryslot));
-            slots[i].GetComponent<slot>().id = i;
+            slots[i].transform.GetComponent<slot>().id = i;
             slots[i].transform.SetParent(slotpanel.transform);
             slots[i].transform.localScale = new Vector3(1f, 1f, 1f);
         }
 
         pick.PickListener(OnPickUpitem);
-        AddItem(3);
+
+        //AddItem(0);
+        //AddItem(1);
+        //AddItem(3);
 
     }
-
+    
     public void OnPickUpitem(int itemid)
     {
+        Debug.Log("ItemID" + itemid);
         AddItem(itemid);
     }
     public void AddItem(int id) 
@@ -50,6 +55,7 @@ public class Inventory : MonoBehaviour
         Item itemtoAdd = dataBase.fetchItemByID(id);
         if (itemtoAdd.Stackable && Checkitemisinventory(itemtoAdd))
         {
+            Debug.Log("1");
             for (int i = 0; i < itmes.Count; i++)
             {
                 if (itmes[i].ID == id)
@@ -63,21 +69,27 @@ public class Inventory : MonoBehaviour
         }
         else
         {
+            
             for (int i = 0; i < itmes.Count; i++)
             {
                 if (itmes[i].ID == -1)
                 {
+
+                    Debug.Log("2");
                     itmes[i] = itemtoAdd;
                     GameObject itemObj = Instantiate(inventoryItem);
-                    itemObj.GetComponent<itemdata>().item = itemtoAdd;
-                    itemObj.GetComponent<itemdata>().slot = i;
-                    itemObj.transform.SetParent(slots[i].transform);
-                    itemObj.transform.position = Vector2.zero;
+                    
+                    itemObj.transform.GetComponent<itemdata>().item = itemtoAdd;
+                    itemObj.transform.GetComponent<itemdata>().slot = i;
+                    itemObj.transform.SetParent(slots[i].transform);                   
+                    itemObj.transform.position = slots[i].transform.position;
+
+                    //itemObj.transform.position =  Vector2.zero;
                     itemObj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
-                    itemObj.GetComponent<Image>().sprite = itemtoAdd.Sprite;
+                    itemObj.transform.GetComponent<Image>().sprite = itemtoAdd.Sprite;
                     itemObj.name = itemtoAdd.Title;
 
-                    break;
+                      break;
                 }
             }
         }
