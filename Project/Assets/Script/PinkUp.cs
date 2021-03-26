@@ -9,6 +9,7 @@ using System;
 public class PinkUp : MonoBehaviour
 {
     PickUpEven pickupeven = new PickUpEven();
+    PickUpEven picktimeeven = new PickUpEven();
 
     private int x = 0;
     public float Delay = 3f;
@@ -24,15 +25,20 @@ public class PinkUp : MonoBehaviour
     {
         pickupeven.AddListener(listener);
     }
-    void Update()
-    {
-        if(x == 1)
-        {
-            pickupeven.Invoke(itemid);
 
-            x = 0;
-        }
+    public void PickTimeListener(UnityAction<int> listener)
+    {
+        picktimeeven.AddListener(listener);
     }
+    //void Update()
+    //{
+    //    if(x == 2)
+    //    {
+    //        pickupeven.Invoke(itemid);
+
+    //        x = 0;
+    //    }
+    //}
 
     private void OnTriggerStay(Collider other)
     {
@@ -60,8 +66,15 @@ public class PinkUp : MonoBehaviour
                 {
                     ID = item.GetComponent<ItemId>();
                     itemid = ID.itemID;
-                    x += 1;
-                   
+                    if(itemid != 99)
+                        pickupeven.Invoke(itemid);
+                    //x += 1;
+
+                    else if(itemid == 99)
+                    {
+                        picktimeeven.Invoke(5);
+                    }
+
                     Destroy(item.gameObject);
                     StartCoroutine(DelayBotton(true));
                 }
