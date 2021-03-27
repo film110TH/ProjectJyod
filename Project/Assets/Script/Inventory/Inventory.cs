@@ -39,10 +39,6 @@ public class Inventory : MonoBehaviour
 
         pick.PickListener(OnPickUpitem);
 
-        //AddItem(0);
-        //AddItem(1);
-        //AddItem(3);
-
     }
     
     public void OnPickUpitem(int itemid)
@@ -55,7 +51,6 @@ public class Inventory : MonoBehaviour
         Item itemtoAdd = dataBase.fetchItemByID(id);
         if (itemtoAdd.Stackable && Checkitemisinventory(itemtoAdd))
         {
-            Debug.Log("1");
             for (int i = 0; i < itmes.Count; i++)
             {
                 if (itmes[i].ID == id)
@@ -74,8 +69,6 @@ public class Inventory : MonoBehaviour
             {
                 if (itmes[i].ID == -1)
                 {
-
-                    Debug.Log("2");
                     itmes[i] = itemtoAdd;
                     GameObject itemObj = Instantiate(inventoryItem);
                     

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SpawnItem : MonoBehaviour
 {
@@ -11,11 +12,17 @@ public class SpawnItem : MonoBehaviour
     public PinkUp pick;
     public Text timetext;
     public Text gameovertext;
+    public Text restarttext;
+    public Text scoretext;
+    public Text scorerealtext;
+
+    static int score = 0;
 
     bool onstart;
+    bool restart = false;
 
     private float timeSpawn = 10;
-    private float timeout = 5;
+    private float timeout = 60;
 
     private void Start()
     {
@@ -32,8 +39,9 @@ public class SpawnItem : MonoBehaviour
             timeout -= Time.deltaTime;
 
             timetext.text = "Time : " + (int)timeout;
+            scorerealtext.text = "Score :" + score; 
 
-            if(timeSpawn >= 10)
+            if (timeSpawn >= 10)
             {
                 Debug.Log("New Item");
                 for(int i = 0; i < 3; i++)
@@ -55,13 +63,25 @@ public class SpawnItem : MonoBehaviour
             {
                 onstart = false;
                 gameovertext.text = "GameOver";
+                restarttext.text = "press R to restart";
+                scoretext.text = "score : " + score;
+
 
                 GameObject[] games = GameObject.FindGameObjectsWithTag("Item");
                 foreach (GameObject i in games)
                 {
                     Destroy(i);
                 }
-                
+
+
+                restart = true;
+            }
+        }
+        if(restart == true)
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                ReStart();
             }
         }
     }
@@ -72,8 +92,23 @@ public class SpawnItem : MonoBehaviour
         onstart = true;
     }
 
-    public void Addtime(int time)
+    public void Addtime(int id)
     {
-        timeout += time;
+        //timeout += id;
+        Debug.Log(id);
+
+        if (id == 2)
+            score += 3;
+        else if (id == 3)
+            score += 5;
+        else if (id == 99)
+            timeout += 5; 
+    
+    }
+
+    void ReStart()
+    {
+        Debug.Log("GG");
+        SceneManager.LoadScene("SceneHome");
     }
 }

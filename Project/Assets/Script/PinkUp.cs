@@ -70,10 +70,8 @@ public class PinkUp : MonoBehaviour
                         pickupeven.Invoke(itemid);
                     //x += 1;
 
-                    else if(itemid == 99)
-                    {
-                        picktimeeven.Invoke(5);
-                    }
+                    picktimeeven.Invoke(itemid);
+                    
 
                     Destroy(item.gameObject);
                     StartCoroutine(DelayBotton(true));
